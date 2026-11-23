@@ -1,0 +1,36 @@
+name: go_ci_poc
+
+on:
+  pull_request:
+    branches: [develop, main, "release/**"]
+  push:
+    branches: [develop, main, "release/**"]
+
+env:
+  REGISTRY: ghrc.io
+
+jobs:
+  test-lint:
+    runs-on: ubuntu-latest
+
+  steps:
+    - uses: actions/checkout@v7
+
+    - uses: actions/setup-go@v7
+      with:
+        go-version-file: go.mod
+        cache: true
+ 
+    - name: Go linting
+      uses: golangci/golangci-lint-action@v9
+      with:
+        version: latest
+
+    - name: Go testing
+      run: go test -race -covermode=atomic -coverprofile=coverage.out ./...
+
+    - name: Upload coverage
+      uses: actions/upload-artifact@v7
+      with:
+        name: coverage
+        path: coverage.out
