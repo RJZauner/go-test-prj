@@ -48,7 +48,7 @@ jobs:
 
       - name: go-test-build
         id: ref
-        run: echo "image={REGISTRY}/${GITHUB_REPOSITORY,,}" >> "GITHUB_OUTPUT"
+        run: echo "image=${REGISTRY}/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
 
       - uses: docker/setup-buildx-action@v4
 
@@ -64,7 +64,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ${{ steps.ref.output.image }}
+          images: ${{ steps.ref.outputs.image }}
           tags: |
               type=sha,format=long
               type=ref,event=branch
