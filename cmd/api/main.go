@@ -9,6 +9,7 @@ import (
 func main() {
 	e := echo.New()
 
+	// Comment added to test pipeline
 	e.Use(middleware.RequestLogger())
 	e.Use(middleware.Recover())
 
