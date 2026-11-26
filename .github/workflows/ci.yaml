@@ -10,22 +10,12 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  test-lint:
+  lint:
+    uses: RJZauner/pipeline-lib/.github/workflows/go-lint.yaml@main
+
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v7
-
-      - uses: actions/setup-go@v7
-        with:
-          go-version-file: go.mod
-          cache: true
-      
-      - name: Go linting
-        uses: golangci/golangci-lint-action@v9
-        with:
-          version: latest
-      
       - name: Go testing
         run: go test -race -covermode=atomic -coverprofile=coverage.out ./...
 
