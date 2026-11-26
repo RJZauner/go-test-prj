@@ -26,6 +26,6 @@ func TestHealthRoute(t *testing.T) {
 	// assert response body is correct
 	var got HealthResponse
 	require.NoError(t, json.Unmarshal(rec.Body.Bytes(), &got))
-	assert.Equal(t, HealthResponse{Status: "health"}, got)
+	assert.Equal(t, HealthResponse{Status: "healthy"}, got)
 }
 
